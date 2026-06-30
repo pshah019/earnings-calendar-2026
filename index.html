@@ -63,7 +63,7 @@
 <body>
 <header class="top">
   <h1>📈 Stock Earnings Calendar — Rest of 2026</h1>
-  <p class="sub">Upcoming quarterly earnings from today through December 31, 2026 — covering the <strong>Dow 30</strong>, the <strong>Nasdaq‑100</strong>, the top <strong>~460 Nasdaq‑listed companies</strong> by market cap, and other large S&amp;P 500 names (522 companies total). <strong>58 of the most‑watched names now show their real published next‑earnings date</strong> (green dot = company‑confirmed); the rest are projected estimates. Filter by index, search by name or ticker, or toggle pre‑market vs after‑close.</p>
+  <p class="sub">Upcoming quarterly earnings from today through December 31, 2026 — covering the <strong>Dow 30</strong>, the <strong>Nasdaq‑100</strong>, the top <strong>~460 Nasdaq‑listed companies</strong> by market cap, and other large S&amp;P 500 names (522 companies total). <strong>70 of the most‑watched names now show their real published next‑earnings date</strong> (green dot = company‑confirmed); the rest are projected estimates. Filter by index, search by name or ticker, or toggle pre‑market vs after‑close.</p>
 
   <div class="controls">
     <div class="search">
@@ -100,14 +100,13 @@
 <main class="wrap" id="cal"></main>
 
 <footer>
-  <strong>About the dates.</strong> Generated June 22, 2026 · last refreshed June 23, 2026 (added Vistra peers + OUST/AEHR/COHR). Covers all 30 Dow components, the full Nasdaq‑100, and the largest ~460 Nasdaq‑listed companies by market cap, plus large S&amp;P 500 names — 522 companies. 58 of the largest / most‑traded companies now carry their <strong>real published next‑earnings date</strong> looked up individually (green dot where the company has formally announced; otherwise the date a major data provider currently lists). <strong>All remaining companies show projected estimates.</strong> Mega‑cap dates are projected from each company's consistent historical reporting slot; for the broader Nasdaq names, dates are projected from typical sector reporting windows and should be treated as approximate placeholders, not announced dates — always confirm against a company's investor‑relations page before trading. Sector colors for smaller names are inferred and may be approximate. Logos load from a public CDN and fall back to an initials badge where unavailable; logos are trademarks of their respective owners, shown for identification only.
+  <strong>About the dates.</strong> Generated June 22, 2026 · last refreshed June 29, 2026 (refreshed confirmed earnings dates for priority tickers). Covers all 30 Dow components, the full Nasdaq‑100, and the largest ~460 Nasdaq‑listed companies by market cap, plus large S&amp;P 500 names — 522 companies. 70 of the largest / most‑traded companies now carry their <strong>real published next‑earnings date</strong> looked up individually (green dot where the company has formally announced; otherwise the date a major data provider currently lists). <strong>All remaining companies show projected estimates.</strong> Mega‑cap dates are projected from each company's consistent historical reporting slot; for the broader Nasdaq names, dates are projected from typical sector reporting windows and should be treated as approximate placeholders, not announced dates — always confirm against a company's investor‑relations page before trading. Sector colors for smaller names are inferred and may be approximate. Logos load from a public CDN and fall back to an initials badge where unavailable; logos are trademarks of their respective owners, shown for identification only.
 </footer>
 
 <script>
-const EARNINGS = [
-{d:"2026-06-24",name:"Micron Technology",ticker:"MU",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+const EARNINGS =  [
 {d:"2026-06-30",name:"Nike",ticker:"NKE",time:"AMC",status:"confirmed",sector:"Consumer Disc.",idx:["Dow 30","S&P 500"]},
-{d:"2026-07-09",name:"Aehr Test Systems",ticker:"AEHR",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
+{d:"2026-07-21",name:"Aehr Test Systems",ticker:"AEHR",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-09",name:"PepsiCo",ticker:"PEP",time:"BMO",status:"confirmed",sector:"Consumer Staples",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-13",name:"Fastenal",ticker:"FAST",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-14",name:"Bank of America",ticker:"BAC",time:"BMO",status:"confirmed",sector:"Financials",idx:["S&P 500"]},
@@ -165,11 +164,11 @@ const EARNINGS = [
 {d:"2026-07-23",name:"Intel",ticker:"INTC",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-23",name:"T-Mobile US",ticker:"TMUS",time:"AMC",status:"estimated",sector:"Communication Svcs",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-23",name:"Blackstone",ticker:"BX",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
-{d:"2026-07-23",name:"Honeywell",ticker:"HON",time:"BMO",status:"estimated",sector:"Industrials",idx:["Dow 30","Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-07-23",name:"Honeywell",ticker:"HON",time:"BMO",status:"confirmed",sector:"Industrials",idx:["Dow 30","Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-23",name:"J.B. Hunt Transport Services",ticker:"JBHT",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq"]},
 {d:"2026-07-23",name:"Keurig Dr Pepper",ticker:"KDP",time:"BMO",status:"estimated",sector:"Consumer Staples",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-23",name:"Kimberly-Clark",ticker:"KMB",time:"BMO",status:"estimated",sector:"Consumer Staples",idx:["Nasdaq"]},
-{d:"2026-07-23",name:"Mastercard",ticker:"MA",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
+{d:"2026-07-23",name:"Mastercard",ticker:"MA",time:"BMO",status:"confirmed",sector:"Financials",idx:["S&P 500"]},
 {d:"2026-07-23",name:"Old National Bancorp",ticker:"ONB",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
 {d:"2026-07-23",name:"Union Pacific",ticker:"UNP",time:"BMO",status:"estimated",sector:"Industrials",idx:["S&P 500"]},
 {d:"2026-07-23",name:"United Bankshares",ticker:"UBSI",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
@@ -186,7 +185,7 @@ const EARNINGS = [
 {d:"2026-07-27",name:"Roper Technologies",ticker:"ROP",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-28",name:"Alphabet",ticker:"GOOGL",time:"AMC",status:"confirmed",sector:"Communication Svcs",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-28",name:"Amkor Technology",ticker:"AMKR",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-28",name:"Booking Holdings",ticker:"BKNG",time:"AMC",status:"estimated",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-05",name:"Booking Holdings",ticker:"BKNG",time:"BMO",status:"confirmed",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-28",name:"Bruker",ticker:"BRKR",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-28",name:"Churchill Downs",ticker:"CHDN",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-28",name:"Electronic Arts",ticker:"EA",time:"AMC",status:"estimated",sector:"Communication Svcs",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
@@ -209,7 +208,7 @@ const EARNINGS = [
 {d:"2026-07-28",name:"Sandisk",ticker:"SNDK",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","Nasdaq"]},
 {d:"2026-07-28",name:"SBA Communications",ticker:"SBAC",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-28",name:"Skyworks Solutions",ticker:"SWKS",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-28",name:"Starbucks",ticker:"SBUX",time:"AMC",status:"estimated",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-04",name:"Starbucks",ticker:"SBUX",time:"AMC",status:"confirmed",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-28",name:"StepStone",ticker:"STEP",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-28",name:"Telefonaktiebolaget LM Ericsson",ticker:"ERIC",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-28",name:"TeraWulf",ticker:"WULF",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
@@ -239,7 +238,7 @@ const EARNINGS = [
 {d:"2026-07-29",name:"AeroVironment",ticker:"AVAV",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Amdocs",ticker:"DOX",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"argenx SE",ticker:"ARGX",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-29",name:"Arm Holdings",ticker:"ARM",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-07-29",name:"Arm Holdings",ticker:"ARM",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-29",name:"Bentley Systems",ticker:"BSY",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"BGC",ticker:"BGC",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Bilibili",ticker:"BILI",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
@@ -260,7 +259,7 @@ const EARNINGS = [
 {d:"2026-07-29",name:"News",ticker:"NWS",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Open Text",ticker:"OTEX",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Plains All American Pipeline, L.P.",ticker:"PAA",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-29",name:"Robinhood Markets",ticker:"HOOD",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
+{d:"2026-08-05",name:"Robinhood Markets",ticker:"HOOD",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Saia",ticker:"SAIA",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Sanmina",ticker:"SANM",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Sanofi",ticker:"SNY",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
@@ -269,10 +268,10 @@ const EARNINGS = [
 {d:"2026-07-29",name:"The Middleby",ticker:"MIDD",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Vodafone Group Public",ticker:"VOD",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Zebra Technologies",ticker:"ZBRA",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-29",name:"AbbVie",ticker:"ABBV",time:"BMO",status:"estimated",sector:"Health Care",idx:["S&P 500"]},
+{d:"2026-07-31",name:"AbbVie",ticker:"ABBV",time:"BMO",status:"confirmed",sector:"Health Care",idx:["S&P 500"]},
 {d:"2026-07-29",name:"Automatic Data Processing",ticker:"ADP",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-29",name:"BioMarin Pharmaceutical",ticker:"BMRN",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
-{d:"2026-07-29",name:"Boeing",ticker:"BA",time:"BMO",status:"estimated",sector:"Industrials",idx:["Dow 30","S&P 500"]},
+{d:"2026-07-29",name:"Boeing",ticker:"BA",time:"BMO",status:"confirmed",sector:"Industrials",idx:["Dow 30","S&P 500"]},
 {d:"2026-07-29",name:"Centessa Pharmaceuticals",ticker:"CNTA",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Cogent Biosciences",ticker:"COGT",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Ferrovial",ticker:"FER",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
@@ -285,7 +284,7 @@ const EARNINGS = [
 {d:"2026-07-29",name:"NextEra Energy",ticker:"NEE",time:"BMO",status:"confirmed",sector:"Utilities",idx:["S&P 500"]},
 {d:"2026-07-29",name:"Old Dominion Freight Line",ticker:"ODFL",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-29",name:"Revolution Medicines",ticker:"RVMD",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
-{d:"2026-07-29",name:"Shopify",ticker:"SHOP",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-07-29",name:"Shopify",ticker:"SHOP",time:"BMO",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-30",name:"AGNC Investment",ticker:"AGNC",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-30",name:"Akamai Technologies",ticker:"AKAM",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-30",name:"Amazon",ticker:"AMZN",time:"AMC",status:"estimated",sector:"Consumer Disc.",idx:["Dow 30","Nasdaq-100","S&P 500","Nasdaq"]},
@@ -372,10 +371,10 @@ const EARNINGS = [
 {d:"2026-08-04",name:"Ondas",ticker:"ONDS",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-04",name:"Red Rock Resorts",ticker:"RRR",time:"AMC",status:"estimated",sector:"Consumer Disc.",idx:["Nasdaq"]},
 {d:"2026-08-04",name:"Riot Platforms",ticker:"RIOT",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-08-04",name:"Rivian Automotive",ticker:"RIVN",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
+{d:"2026-08-11",name:"Rivian Automotive",ticker:"RIVN",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-04",name:"Sprouts Farmers Market",ticker:"SFM",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-04",name:"Sterling Infrastructure",ticker:"STRL",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-08-04",name:"Super Micro Computer",ticker:"SMCI",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
+{d:"2026-08-11",name:"Super Micro Computer",ticker:"SMCI",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-04",name:"Tetra Tech",ticker:"TTEK",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-04",name:"TPG",ticker:"TPG",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-04",name:"Tradeweb Markets",ticker:"TW",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
@@ -465,7 +464,7 @@ const EARNINGS = [
 {d:"2026-08-06",name:"Natera",ticker:"NTRA",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Nordson",ticker:"NDSN",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Nuvalent",ticker:"NUVL",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-08-06",name:"Ouster",ticker:"OUST",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
+{d:"2026-08-06",name:"Ouster",ticker:"OUST",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Plains GP Holdings, L.P.",ticker:"PAGP",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Popular",ticker:"BPOP",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Rigetti Computing",ticker:"RGTI",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
@@ -488,7 +487,7 @@ const EARNINGS = [
 {d:"2026-08-06",name:"Constellation Energy",ticker:"CEG",time:"BMO",status:"estimated",sector:"Utilities",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-06",name:"Insmed",ticker:"INSM",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-06",name:"Krystal Biotech",ticker:"KRYS",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
-{d:"2026-08-06",name:"NRG Energy",ticker:"NRG",time:"BMO",status:"estimated",sector:"Utilities",idx:["S&P 500"]},
+{d:"2026-08-12",name:"NRG Energy",ticker:"NRG",time:"BMO",status:"confirmed",sector:"Utilities",idx:["S&P 500"]},
 {d:"2026-08-06",name:"PTC Therapeutics",ticker:"PTCT",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Talen Energy",ticker:"TLN",time:"BMO",status:"estimated",sector:"Energy",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Viper Energy",ticker:"VNOM",time:"BMO",status:"estimated",sector:"Energy",idx:["Nasdaq"]},
@@ -605,7 +604,7 @@ const EARNINGS = [
 {d:"2026-08-20",name:"Walmart",ticker:"WMT",time:"BMO",status:"confirmed",sector:"Consumer Staples",idx:["Dow 30","Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-24",name:"Palo Alto Networks",ticker:"PANW",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-24",name:"Zoom Communications",ticker:"ZM",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-08-26",name:"CrowdStrike",ticker:"CRWD",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-27",name:"CrowdStrike",ticker:"CRWD",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-26",name:"NVIDIA",ticker:"NVDA",time:"AMC",status:"confirmed",sector:"Technology",idx:["Dow 30","Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-26",name:"Salesforce",ticker:"CRM",time:"AMC",status:"confirmed",sector:"Technology",idx:["Dow 30","S&P 500"]},
 {d:"2026-08-26",name:"Synopsys",ticker:"SNPS",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
@@ -616,7 +615,7 @@ const EARNINGS = [
 {d:"2026-09-03",name:"Broadcom",ticker:"AVGO",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-09-03",name:"Copart",ticker:"CPRT",time:"AMC",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-09-03",name:"DocuSign",ticker:"DOCU",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-09-08",name:"Zscaler",ticker:"ZS",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-09-08",name:"Zscaler",ticker:"ZS",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-09-10",name:"Adobe",ticker:"ADBE",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-09-14",name:"Oracle",ticker:"ORCL",time:"AMC",status:"confirmed",sector:"Technology",idx:["S&P 500"]},
 {d:"2026-09-17",name:"FedEx",ticker:"FDX",time:"AMC",status:"estimated",sector:"Industrials",idx:["S&P 500"]},
@@ -1119,7 +1118,7 @@ const SECTOR_COLOR={"Technology":"#5b8cff","Financials":"#22c55e","Health Care":
 const LOGO=t=>`https://g.foolcdn.com/art/companylogos/mark/${t.replace('.','-')}.png`;
 const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
 const DOW=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-const TODAY="2026-06-22";
+const TODAY="2026-06-29";
 function initials(name){const c=name.replace(/[^A-Za-z0-9 &]/g,'').split(/\s+/).filter(Boolean);if(c.length===1)return c[0].slice(0,2).toUpperCase();return (c[0][0]+c[1][0]).toUpperCase();}
 function parseD(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);}
 const state={q:"",time:"all",idx:"all"};
