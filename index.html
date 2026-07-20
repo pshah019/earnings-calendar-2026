@@ -6,130 +6,110 @@
 <title>Stock Earnings Calendar — Rest of 2026</title>
 <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 <style>
-  :root{--bg:#0b1020;--panel:#121a30;--ink:#e8edf7;--muted:#93a0bd;--line:#212c49;--accent:#5b8cff;--confirmed:#22c55e;--amc:#a78bfa;--bmo:#f5b945;}
-  *{box-sizing:border-box}
-  body{margin:0;background:radial-gradient(1200px 600px at 70% -10%,#16223f 0%,var(--bg) 55%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;padding:0 0 80px}
-  .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
-  header.top{padding:34px 22px 16px;max-width:1180px;margin:0 auto}
-  h1{font-size:27px;margin:0 0 6px;letter-spacing:-.4px;font-weight:750}
-  .sub{color:var(--muted);font-size:14.5px;margin:0;line-height:1.5;max-width:820px}
-  .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:20px 0 6px}
-  .search{flex:1;min-width:220px;position:relative}
-  .search input{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:11px 14px 11px 38px;border-radius:11px;font-size:14.5px;outline:none}
-  .search input:focus{border-color:var(--accent)}
-  .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.5}
-  .seg{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:3px;gap:2px;flex-wrap:wrap}
-  .seg button{background:transparent;border:0;color:var(--muted);padding:8px 12px;border-radius:8px;font-size:13px;cursor:pointer;font-weight:600;white-space:nowrap}
-  .seg button.on{background:var(--accent);color:#fff}
-  .seg.idx button.on{background:#1f2a4d;color:#fff;box-shadow:inset 0 0 0 1px var(--accent)}
-  .legend{display:flex;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:12.5px;margin:12px 2px 4px;align-items:center}
-  .legend .it{display:flex;align-items:center;gap:6px}
-  .dot{width:9px;height:9px;border-radius:50%}
-  .idxtag{font-size:9px;font-weight:800;letter-spacing:.4px;padding:1px 4px;border-radius:4px;line-height:1.5;border:1px solid currentColor}
-  .idxtag.dow{color:#f5b945}.idxtag.ndx{color:#36c2cf}.idxtag.ndq{color:#7f93b8}
-  .monthnav{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 4px;position:sticky;top:0;z-index:5;background:linear-gradient(var(--bg),var(--bg) 70%,transparent);padding:10px 0}
-  .monthnav a{font-size:12.5px;color:var(--muted);text-decoration:none;border:1px solid var(--line);padding:6px 12px;border-radius:999px;background:var(--panel)}
-  .monthnav a:hover{color:var(--ink);border-color:var(--accent)}
-  .month{margin-top:30px}
-  .month h2{font-size:18px;margin:0 0 2px;font-weight:700;letter-spacing:-.2px;display:flex;align-items:baseline;gap:10px}
-  .month h2 .cnt{font-size:12.5px;color:var(--muted);font-weight:500}
-  .mline{height:1px;background:linear-gradient(90deg,var(--line),transparent);margin:10px 0 4px}
-  .day{display:grid;grid-template-columns:118px 1fr;gap:18px;padding:16px 0;border-bottom:1px solid var(--line)}
-  .day:last-child{border-bottom:0}
-  .datebox{position:sticky;top:64px}
-  .dow{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
-  .dnum{font-size:30px;font-weight:760;line-height:1.05;letter-spacing:-1px}
-  .dmon{font-size:12px;color:var(--muted)}
-  .daycount{font-size:11px;color:var(--muted);margin-top:4px;opacity:.8}
-  .today-tag{display:inline-block;margin-top:6px;font-size:10.5px;font-weight:700;color:#fff;background:var(--accent);padding:2px 7px;border-radius:6px}
-  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
-  .card{display:flex;align-items:center;gap:11px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--line);border-radius:12px;padding:10px 12px;min-height:58px;transition:border-color .15s,transform .15s}
-  .card:hover{transform:translateY(-1px)}
-  .logo{width:34px;height:34px;border-radius:8px;background:#fff;flex:0 0 34px;object-fit:contain;padding:3px;display:block}
-  .badge{width:34px;height:34px;border-radius:8px;flex:0 0 34px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;letter-spacing:-.5px}
-  .meta{min-width:0;flex:1}
-  .nm{font-size:13.5px;font-weight:640;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .row2{display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap}
-  .tk{font-size:11.5px;color:var(--muted);font-weight:600}
-  .tag{font-size:9.5px;font-weight:700;letter-spacing:.3px;padding:1.5px 5px;border-radius:5px;line-height:1.4}
-  .tag.amc{color:var(--amc);background:rgba(167,139,250,.13)}
-  .tag.bmo{color:var(--bmo);background:rgba(245,185,69,.13)}
-  .conf{width:7px;height:7px;border-radius:50%;background:var(--confirmed);flex:0 0 7px;box-shadow:0 0 0 3px rgba(34,197,94,.16)}
-  .empty{color:var(--muted);font-size:14px;text-align:center;padding:60px 0}
-  footer{color:var(--muted);font-size:12px;max-width:1180px;margin:36px auto 0;padding:18px 22px 0;border-top:1px solid var(--line);line-height:1.6}
-  .count-badge{font-size:12px;color:var(--muted)}
-  @media(max-width:560px){.day{grid-template-columns:84px 1fr;gap:12px}.dnum{font-size:24px}.cards{grid-template-columns:1fr 1fr}.datebox{top:60px}}
+:root{--bg:#0b1020;--panel:#121a30;--ink:#e8edf7;--muted:#93a0bd;--line:#212c49;--accent:#5b8cff;--confirmed:#22c55e;--amc:#a78bfa;--bmo:#f5b945;}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 600px at 70% -10%,#16223f 0%,var(--bg) 55%);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;padding:0 0 80px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+header.top{padding:34px 22px 16px;max-width:1180px;margin:0 auto}
+h1{font-size:27px;margin:0 0 6px;letter-spacing:-.4px;font-weight:750}
+.sub{color:var(--muted);font-size:14.5px;margin:0;line-height:1.5;max-width:820px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:20px 0 6px}
+.search{flex:1;min-width:220px;position:relative}
+.search input{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:11px 14px 11px 38px;border-radius:11px;font-size:14.5px;outline:none}
+.search input:focus{border-color:var(--accent)}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.5}
+.seg{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{background:transparent;border:0;color:var(--muted);padding:8px 12px;border-radius:8px;font-size:13px;cursor:pointer;font-weight:600;white-space:nowrap}
+.seg button.on{background:var(--accent);color:#fff}
+.seg.idx button.on{background:#1f2a4d;color:#fff;box-shadow:inset 0 0 0 1px var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;color:var(--muted);font-size:12.5px;margin:12px 2px 4px;align-items:center}
+.legend .it{display:flex;align-items:center;gap:6px}
+.dot{width:9px;height:9px;border-radius:50%}
+.idxtag{font-size:9px;font-weight:800;letter-spacing:.4px;padding:1px 4px;border-radius:4px;line-height:1.5;border:1px solid currentColor}
+.idxtag.dow{color:#f5b945}.idxtag.ndx{color:#36c2cf}.idxtag.ndq{color:#7f93b8}
+.monthnav{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 4px;position:sticky;top:0;z-index:5;background:linear-gradient(var(--bg),var(--bg) 70%,transparent);padding:10px 0}
+.monthnav a{font-size:12.5px;color:var(--muted);text-decoration:none;border:1px solid var(--line);padding:6px 12px;border-radius:999px;background:var(--panel)}
+.monthnav a:hover{color:var(--ink);border-color:var(--accent)}
+.month{margin-top:30px}
+.month h2{font-size:18px;margin:0 0 2px;font-weight:700;letter-spacing:-.2px;display:flex;align-items:baseline;gap:10px}
+.month h2 .cnt{font-size:12.5px;color:var(--muted);font-weight:500}
+.mline{height:1px;background:linear-gradient(90deg,var(--line),transparent);margin:10px 0 4px}
+.day{display:grid;grid-template-columns:118px 1fr;gap:18px;padding:16px 0;border-bottom:1px solid var(--line)}
+.day:last-child{border-bottom:0}
+.datebox{position:sticky;top:64px}
+.dow{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
+.dnum{font-size:30px;font-weight:760;line-height:1.05;letter-spacing:-1px}
+.dmon{font-size:12px;color:var(--muted)}
+.daycount{font-size:11px;color:var(--muted);margin-top:4px;opacity:.8}
+.today-tag{display:inline-block;margin-top:6px;font-size:10.5px;font-weight:700;color:#fff;background:var(--accent);padding:2px 7px;border-radius:6px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.card{display:flex;align-items:center;gap:11px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--line);border-radius:12px;padding:10px 12px;min-height:58px;transition:border-color .15s,transform .15s}
+.card:hover{transform:translateY(-1px)}
+.logo{width:34px;height:34px;border-radius:8px;background:#fff;flex:0 0 34px;object-fit:contain;padding:3px;display:block}
+.badge{width:34px;height:34px;border-radius:8px;flex:0 0 34px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;letter-spacing:-.5px}
+.meta{min-width:0;flex:1}
+.nm{font-size:13.5px;font-weight:640;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row2{display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap}
+.tk{font-size:11.5px;color:var(--muted);font-weight:600}
+.tag{font-size:9.5px;font-weight:700;letter-spacing:.3px;padding:1.5px 5px;border-radius:5px;line-height:1.4}
+.tag.amc{color:var(--amc);background:rgba(167,139,250,.13)}
+.tag.bmo{color:var(--bmo);background:rgba(245,185,69,.13)}
+.conf{width:7px;height:7px;border-radius:50%;background:var(--confirmed);flex:0 0 7px;box-shadow:0 0 0 3px rgba(34,197,94,.16)}
+.empty{color:var(--muted);font-size:14px;text-align:center;padding:60px 0}
+footer{color:var(--muted);font-size:12px;max-width:1180px;margin:36px auto 0;padding:18px 22px 0;border-top:1px solid var(--line);line-height:1.6}
+.count-badge{font-size:12px;color:var(--muted)}
+@media(max-width:560px){.day{grid-template-columns:84px 1fr;gap:12px}.dnum{font-size:24px}.cards{grid-template-columns:1fr 1fr}.datebox{top:60px}}
 </style>
 </head>
 <body>
 <header class="top">
-  <h1>📈 Stock Earnings Calendar — Rest of 2026</h1>
-  <p class="sub">Upcoming quarterly earnings from today through December 31, 2026 — covering the <strong>Dow 30</strong>, the <strong>Nasdaq‑100</strong>, the top <strong>~460 Nasdaq‑listed companies</strong> by market cap, and other large S&amp;P 500 names (524 companies total). <strong>95 of the most‑watched names now show their real published next‑earnings date</strong> (green dot = company‑confirmed); the rest are projected estimates. Filter by index, search by name or ticker, or toggle pre‑market vs after‑close.</p>
+<h1>📈 Stock Earnings Calendar — Rest of 2026</h1>
+<p class="sub">Upcoming quarterly earnings from today through December 31, 2026 — covering the <strong>Dow 30</strong>, the <strong>Nasdaq‑100</strong>, the top <strong>~460 Nasdaq‑listed companies</strong> by market cap, and other large S&amp;P 500 names (524 companies total). <strong>94 of the most‑watched names now show their real published next‑earnings date</strong> (green dot = company‑confirmed); the rest are projected estimates. Filter by index, search by name or ticker, or toggle pre‑market vs after‑close.</p>
 
-  <div class="controls">
-    <div class="search">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input id="q" type="text" placeholder="Search company or ticker (e.g. Coinbase, RIVN, banks)…" autocomplete="off">
-    </div>
-    <div class="seg idx" id="idxSeg">
-      <button data-i="all" class="on">All</button>
-      <button data-i="Dow 30">Dow 30</button>
-      <button data-i="Nasdaq-100">Nasdaq‑100</button>
-      <button data-i="Nasdaq">Nasdaq (all)</button>
-      <button data-i="S&P 500">S&amp;P 500</button>
-    </div>
-    <div class="seg" id="timeSeg">
-      <button data-t="all" class="on">All</button>
-      <button data-t="BMO">Pre‑market</button>
-      <button data-t="AMC">After‑close</button>
-    </div>
-  </div>
+<div class="controls">
+<div class="search">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+<input id="q" type="text" placeholder="Search company or ticker (e.g. Coinbase, RIVN, banks)…" autocomplete="off">
+</div>
+<div class="seg idx" id="idxSeg">
+<button data-i="all" class="on">All</button>
+<button data-i="Dow 30">Dow 30</button>
+<button data-i="Nasdaq-100">Nasdaq‑100</button>
+<button data-i="Nasdaq">Nasdaq (all)</button>
+<button data-i="S&P 500">S&amp;P 500</button>
+</div>
+<div class="seg" id="timeSeg">
+<button data-t="all" class="on">All</button>
+<button data-t="BMO">Pre‑market</button>
+<button data-t="AMC">After‑close</button>
+</div>
+</div>
 
-  <div class="legend">
-    <span class="it"><span class="conf"></span> Confirmed</span>
-    <span class="it"><span class="idxtag dow">DOW</span> Dow 30</span>
-    <span class="it"><span class="idxtag ndx">N100</span> Nasdaq‑100</span>
-    <span class="it"><span class="idxtag ndq">NDQ</span> Nasdaq‑listed</span>
-    <span class="it"><span class="tag bmo">BMO</span> before open</span>
-    <span class="it"><span class="tag amc">AMC</span> after close</span>
-    <span class="it count-badge" id="counter"></span>
-  </div>
-  <div class="legend" id="sectorLegend"></div>
-  <nav class="monthnav" id="monthnav"></nav>
+<div class="legend">
+<span class="it"><span class="conf"></span> Confirmed</span>
+<span class="it"><span class="idxtag dow">DOW</span> Dow 30</span>
+<span class="it"><span class="idxtag ndx">N100</span> Nasdaq‑100</span>
+<span class="it"><span class="idxtag ndq">NDQ</span> Nasdaq‑listed</span>
+<span class="it"><span class="tag bmo">BMO</span> before open</span>
+<span class="it"><span class="tag amc">AMC</span> after close</span>
+<span class="it count-badge" id="counter"></span>
+</div>
+<div class="legend" id="sectorLegend"></div>
+<nav class="monthnav" id="monthnav"></nav>
 </header>
 
 <main class="wrap" id="cal"></main>
 
 <footer>
-  <strong>About the dates.</strong> Generated June 22, 2026 · last refreshed July 14, 2026 (full rescan: all near-term dates re-verified against provider calendars + IR announcements). Covers all 30 Dow components, the full Nasdaq‑100, and the largest ~460 Nasdaq‑listed companies by market cap, plus large S&amp;P 500 names — 524 companies. 95 of the largest / most‑traded companies now carry their <strong>real published next‑earnings date</strong> looked up individually (green dot where the company has formally announced; otherwise the date a major data provider currently lists). <strong>All remaining companies show projected estimates.</strong> Mega‑cap dates are projected from each company's consistent historical reporting slot; for the broader Nasdaq names, dates are projected from typical sector reporting windows and should be treated as approximate placeholders, not announced dates — always confirm against a company's investor‑relations page before trading. Sector colors for smaller names are inferred and may be approximate. Logos load from a public CDN and fall back to an initials badge where unavailable; logos are trademarks of their respective owners, shown for identification only.
+<strong>About the dates.</strong> Generated June 22, 2026 · last refreshed July 20, 2026 (biweekly refresh: 94 priority tickers re-verified against provider calendars + IR announcements). Covers all 30 Dow components, the full Nasdaq‑100, and the largest ~460 Nasdaq‑listed companies by market cap, plus large S&amp;P 500 names — 524 companies. 94 of the largest / most‑traded companies now carry their <strong>real published next‑earnings date</strong> looked up individually (green dot where the company has formally announced; otherwise the date a major data provider currently lists). <strong>All remaining companies show projected estimates.</strong> Mega‑cap dates are projected from each company's consistent historical reporting slot; for the broader Nasdaq names, dates are projected from typical sector reporting windows and should be treated as approximate placeholders, not announced dates — always confirm against a company's investor‑relations page before trading. Sector colors for smaller names are inferred and may be approximate. Logos load from a public CDN and fall back to an initials badge where unavailable; logos are trademarks of their respective owners, shown for identification only.
 </footer>
 
 <script>
-const EARNINGS =  [
-{d:"2026-07-14",name:"Aehr Test Systems",ticker:"AEHR",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-14",name:"Bank of America",ticker:"BAC",time:"BMO",status:"confirmed",sector:"Financials",idx:["S&P 500"]},
-{d:"2026-07-15",name:"BlackRock",ticker:"BLK",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
-{d:"2026-07-14",name:"Citigroup",ticker:"C",time:"BMO",status:"confirmed",sector:"Financials",idx:["S&P 500"]},
-{d:"2026-07-14",name:"Goldman Sachs",ticker:"GS",time:"BMO",status:"confirmed",sector:"Financials",idx:["Dow 30","S&P 500"]},
-{d:"2026-07-14",name:"JPMorgan Chase",ticker:"JPM",time:"BMO",status:"confirmed",sector:"Financials",idx:["Dow 30","S&P 500"]},
-{d:"2026-07-14",name:"Wells Fargo",ticker:"WFC",time:"BMO",status:"confirmed",sector:"Financials",idx:["S&P 500"]},
+const EARNINGS = [
 {d:"2026-07-20",name:"BOK Financial",ticker:"BOKF",time:"AMC",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
-{d:"2026-07-17",name:"Fifth Third Bancorp",ticker:"FITB",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
-{d:"2026-07-15",name:"Johnson & Johnson",ticker:"JNJ",time:"BMO",status:"confirmed",sector:"Health Care",idx:["Dow 30","S&P 500"]},
-{d:"2026-07-15",name:"Morgan Stanley",ticker:"MS",time:"BMO",status:"confirmed",sector:"Financials",idx:["S&P 500"]},
-{d:"2026-07-15",name:"PNC Financial",ticker:"PNC",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
 {d:"2026-07-27",name:"Principal Financial",ticker:"PFG",time:"AMC",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
-{d:"2026-07-16",name:"Intuitive Surgical",ticker:"ISRG",time:"AMC",status:"confirmed",sector:"Health Care",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-07-16",name:"Netflix",ticker:"NFLX",time:"AMC",status:"confirmed",sector:"Communication Svcs",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-07-16",name:"Abbott Laboratories",ticker:"ABT",time:"BMO",status:"estimated",sector:"Health Care",idx:["S&P 500"]},
-{d:"2026-07-15",name:"Cintas",ticker:"CTAS",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-07-16",name:"Commerce Bancshares",ticker:"CBSH",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
 {d:"2026-07-21",name:"East West Bancorp",ticker:"EWBC",time:"AMC",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
-{d:"2026-07-16",name:"GE Aerospace",ticker:"GE",time:"BMO",status:"confirmed",sector:"Industrials",idx:["S&P 500"]},
 {d:"2026-07-23",name:"Huntington Bancshares",ticker:"HBAN",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
-{d:"2026-07-16",name:"TSMC",ticker:"TSM",time:"BMO",status:"estimated",sector:"Technology",idx:["S&P 500"]},
-{d:"2026-07-16",name:"U.S. Bancorp",ticker:"USB",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
-{d:"2026-07-16",name:"UnitedHealth Group",ticker:"UNH",time:"BMO",status:"confirmed",sector:"Health Care",idx:["Dow 30","S&P 500"]},
 {d:"2026-07-21",name:"3M",ticker:"MMM",time:"BMO",status:"estimated",sector:"Industrials",idx:["Dow 30","S&P 500"]},
 {d:"2026-07-22",name:"Northern Trust",ticker:"NTRS",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
 {d:"2026-07-24",name:"Schlumberger",ticker:"SLB",time:"BMO",status:"estimated",sector:"Energy",idx:["S&P 500"]},
@@ -145,7 +125,6 @@ const EARNINGS =  [
 {d:"2026-07-23",name:"Lockheed Martin",ticker:"LMT",time:"BMO",status:"estimated",sector:"Industrials",idx:["S&P 500"]},
 {d:"2026-07-22",name:"Philip Morris",ticker:"PM",time:"BMO",status:"estimated",sector:"Consumer Staples",idx:["S&P 500"]},
 {d:"2026-07-20",name:"Steel Dynamics",ticker:"STLD",time:"AMC",status:"estimated",sector:"Industrials",idx:["Nasdaq"]},
-{d:"2026-07-17",name:"Travelers",ticker:"TRV",time:"BMO",status:"estimated",sector:"Financials",idx:["Dow 30","S&P 500"]},
 {d:"2026-07-28",name:"UMB Financial",ticker:"UMBF",time:"AMC",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
 {d:"2026-07-22",name:"Baker Hughes",ticker:"BKR",time:"AMC",status:"estimated",sector:"Energy",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-22",name:"CSX",ticker:"CSX",time:"AMC",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
@@ -157,13 +136,11 @@ const EARNINGS =  [
 {d:"2026-07-22",name:"Firefly Aerospace",ticker:"FLY",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq"]},
 {d:"2026-07-23",name:"FirstService",ticker:"FSV",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
 {d:"2026-07-23",name:"Thermo Fisher",ticker:"TMO",time:"BMO",status:"estimated",sector:"Health Care",idx:["S&P 500"]},
-{d:"2026-07-15",name:"United Airlines",ticker:"UAL",time:"AMC",status:"estimated",sector:"Industrials",idx:["Nasdaq"]},
 {d:"2026-07-20",name:"Zions Bancorporation, National Association",ticker:"ZION",time:"AMC",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
 {d:"2026-07-23",name:"Intel",ticker:"INTC",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-23",name:"T-Mobile US",ticker:"TMUS",time:"BMO",status:"estimated",sector:"Communication Svcs",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-23",name:"Blackstone",ticker:"BX",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
 {d:"2026-07-23",name:"Honeywell",ticker:"HON",time:"BMO",status:"confirmed",sector:"Industrials",idx:["Dow 30","Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-07-15",name:"J.B. Hunt Transport Services",ticker:"JBHT",time:"AMC",status:"estimated",sector:"Industrials",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Keurig Dr Pepper",ticker:"KDP",time:"BMO",status:"estimated",sector:"Consumer Staples",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-04",name:"Kimberly-Clark",ticker:"KMB",time:"BMO",status:"estimated",sector:"Consumer Staples",idx:["Nasdaq"]},
 {d:"2026-07-30",name:"Mastercard",ticker:"MA",time:"BMO",status:"confirmed",sector:"Financials",idx:["S&P 500"]},
@@ -181,9 +158,9 @@ const EARNINGS =  [
 {d:"2026-07-27",name:"Cadence Design Systems",ticker:"CDNS",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-28",name:"NXP Semiconductors",ticker:"NXPI",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-23",name:"Roper Technologies",ticker:"ROP",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-07-22",name:"Alphabet",ticker:"GOOGL",time:"AMC",status:"estimated",sector:"Communication Svcs",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-07-22",name:"Alphabet",ticker:"GOOGL",time:"AMC",status:"confirmed",sector:"Communication Svcs",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-27",name:"Amkor Technology",ticker:"AMKR",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-08-04",name:"Booking Holdings",ticker:"BKNG",time:"AMC",status:"estimated",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-05",name:"Booking Holdings",ticker:"BKNG",time:"AMC",status:"confirmed",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-03",name:"Bruker",ticker:"BRKR",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Churchill Downs",ticker:"CHDN",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Electronic Arts",ticker:"EA",time:"AMC",status:"estimated",sector:"Communication Svcs",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
@@ -206,9 +183,8 @@ const EARNINGS =  [
 {d:"2026-08-05",name:"Sandisk",ticker:"SNDK",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","Nasdaq"]},
 {d:"2026-08-03",name:"SBA Communications",ticker:"SBAC",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-04",name:"Skyworks Solutions",ticker:"SWKS",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-28",name:"Starbucks",ticker:"SBUX",time:"AMC",status:"estimated",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-04",name:"Starbucks",ticker:"SBUX",time:"AMC",status:"confirmed",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-06",name:"StepStone",ticker:"STEP",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-14",name:"Telefonaktiebolaget LM Ericsson",ticker:"ERIC",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-07",name:"TeraWulf",ticker:"WULF",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-22",name:"Texas Instruments",ticker:"TXN",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-06",name:"The Trade Desk",ticker:"TTD",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
@@ -269,7 +245,7 @@ const EARNINGS =  [
 {d:"2026-07-31",name:"AbbVie",ticker:"ABBV",time:"BMO",status:"confirmed",sector:"Health Care",idx:["S&P 500"]},
 {d:"2026-07-29",name:"Automatic Data Processing",ticker:"ADP",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-03",name:"BioMarin Pharmaceutical",ticker:"BMRN",time:"AMC",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
-{d:"2026-07-28",name:"Boeing",ticker:"BA",time:"BMO",status:"estimated",sector:"Industrials",idx:["Dow 30","S&P 500"]},
+{d:"2026-07-28",name:"Boeing",ticker:"BA",time:"BMO",status:"confirmed",sector:"Industrials",idx:["Dow 30","S&P 500"]},
 {d:"2026-07-29",name:"Centessa Pharmaceuticals",ticker:"CNTA",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
 {d:"2026-08-04",name:"Cogent Biosciences",ticker:"COGT",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
 {d:"2026-07-28",name:"Ferrovial",ticker:"FER",time:"AMC",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
@@ -278,21 +254,21 @@ const EARNINGS =  [
 {d:"2026-08-04",name:"Jazz Pharmaceuticals",ticker:"JAZZ",time:"AMC",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
 {d:"2026-08-05",name:"Kraft Heinz",ticker:"KHC",time:"BMO",status:"estimated",sector:"Consumer Staples",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-06",name:"Kratos Defense & Security Solutions",ticker:"KTOS",time:"AMC",status:"estimated",sector:"Industrials",idx:["Nasdaq"]},
-{d:"2026-08-05",name:"McDonald's",ticker:"MCD",time:"BMO",status:"estimated",sector:"Consumer Disc.",idx:["Dow 30","S&P 500"]},
-{d:"2026-07-24",name:"NextEra Energy",ticker:"NEE",time:"BMO",status:"estimated",sector:"Utilities",idx:["S&P 500"]},
+{d:"2026-08-04",name:"McDonald's",ticker:"MCD",time:"BMO",status:"confirmed",sector:"Consumer Disc.",idx:["Dow 30","S&P 500"]},
+{d:"2026-07-24",name:"NextEra Energy",ticker:"NEE",time:"BMO",status:"confirmed",sector:"Utilities",idx:["S&P 500"]},
 {d:"2026-07-29",name:"Old Dominion Freight Line",ticker:"ODFL",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-05",name:"Revolution Medicines",ticker:"RVMD",time:"AMC",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
 {d:"2026-08-05",name:"Shopify",ticker:"SHOP",time:"BMO",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-20",name:"AGNC Investment",ticker:"AGNC",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Akamai Technologies",ticker:"AKAM",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-30",name:"Amazon",ticker:"AMZN",time:"AMC",status:"estimated",sector:"Consumer Disc.",idx:["Dow 30","Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-07-30",name:"Amazon",ticker:"AMZN",time:"AMC",status:"confirmed",sector:"Consumer Disc.",idx:["Dow 30","Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-30",name:"Apple",ticker:"AAPL",time:"AMC",status:"confirmed",sector:"Technology",idx:["Dow 30","Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-29",name:"Ares Capital",ticker:"ARCC",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Aurora Innovation",ticker:"AUR",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-19",name:"Baidu",ticker:"BIDU",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-30",name:"Casey's General Stores",ticker:"CASY",time:"AMC",status:"estimated",sector:"Consumer Disc.",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Century Aluminum",ticker:"CENX",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-30",name:"Coinbase Global",ticker:"COIN",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
+{d:"2026-07-30",name:"Coinbase Global",ticker:"COIN",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-11",name:"CoreWeave",ticker:"CRWV",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-30",name:"Crocs",ticker:"CROX",time:"BMO",status:"estimated",sector:"Consumer Disc.",idx:["Nasdaq"]},
 {d:"2026-07-30",name:"DexCom",ticker:"DXCM",time:"AMC",status:"estimated",sector:"Health Care",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
@@ -300,7 +276,7 @@ const EARNINGS =  [
 {d:"2026-07-29",name:"Equinix",ticker:"EQIX",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-05",name:"Expedia",ticker:"EXPE",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Gen Digital",ticker:"GEN",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-08-06",name:"Gilead Sciences",ticker:"GILD",time:"AMC",status:"estimated",sector:"Health Care",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-07-30",name:"Gilead Sciences",ticker:"GILD",time:"AMC",status:"confirmed",sector:"Health Care",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-31",name:"IES",ticker:"IESC",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-30",name:"Illumina",ticker:"ILMN",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Intuitive Machines",ticker:"LUNR",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
@@ -311,7 +287,7 @@ const EARNINGS =  [
 {d:"2026-07-30",name:"Masimo",ticker:"MASI",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-23",name:"MaxLinear",ticker:"MXL",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-10",name:"Mercury Systems",ticker:"MRCY",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-30",name:"MicroStrategy",ticker:"MSTR",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-04",name:"MicroStrategy",ticker:"MSTR",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-05",name:"MKS",ticker:"MKSI",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-30",name:"Monolithic Power Systems",ticker:"MPWR",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-30",name:"Navan",ticker:"NAVN",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
@@ -339,11 +315,11 @@ const EARNINGS =  [
 {d:"2026-07-21",name:"Pegasystems",ticker:"PEGA",time:"AMC",status:"estimated",sector:"Energy",idx:["Nasdaq"]},
 {d:"2026-07-30",name:"Regeneron Pharmaceuticals",ticker:"REGN",time:"BMO",status:"confirmed",sector:"Health Care",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-30",name:"Xcel Energy",ticker:"XEL",time:"BMO",status:"estimated",sector:"Utilities",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-08-06",name:"Atlassian",ticker:"TEAM",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-31",name:"Chevron",ticker:"CVX",time:"BMO",status:"confirmed",sector:"Energy",idx:["Dow 30","S&P 500"]},
+{d:"2026-08-06",name:"Atlassian",ticker:"TEAM",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq"]},
+{d:"2026-07-24",name:"Chevron",ticker:"CVX",time:"BMO",status:"estimated",sector:"Energy",idx:["Dow 30","S&P 500"]},
 {d:"2026-07-31",name:"ExxonMobil",ticker:"XOM",time:"BMO",status:"confirmed",sector:"Energy",idx:["S&P 500"]},
 {d:"2026-08-03",name:"Diamondback Energy",ticker:"FANG",time:"AMC",status:"estimated",sector:"Energy",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-08-03",name:"Palantir",ticker:"PLTR",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-03",name:"Palantir",ticker:"PLTR",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-03",name:"Vertex Pharmaceuticals",ticker:"VRTX",time:"AMC",status:"estimated",sector:"Health Care",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-10",name:"AAON",ticker:"AAON",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-04",name:"Advanced Micro Devices",ticker:"AMD",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
@@ -372,7 +348,7 @@ const EARNINGS =  [
 {d:"2026-07-30",name:"Rivian Automotive",ticker:"RIVN",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Sprouts Farmers Market",ticker:"SFM",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-03",name:"Sterling Infrastructure",ticker:"STRL",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-08-04",name:"Super Micro Computer",ticker:"SMCI",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
+{d:"2026-08-11",name:"Super Micro Computer",ticker:"SMCI",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Tetra Tech",ticker:"TTEK",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-04",name:"TPG",ticker:"TPG",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-30",name:"Tradeweb Markets",ticker:"TW",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
@@ -395,7 +371,7 @@ const EARNINGS =  [
 {d:"2026-08-04",name:"Silicon Laboratories",ticker:"SLAB",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
 {d:"2026-08-11",name:"Smithfield Foods",ticker:"SFD",time:"BMO",status:"estimated",sector:"Consumer Staples",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"SoFi Technologies",ticker:"SOFI",time:"BMO",status:"confirmed",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-30",name:"AES",ticker:"AES",time:"AMC",status:"estimated",sector:"Utilities",idx:["S&P 500"]},
+{d:"2026-08-06",name:"AES",ticker:"AES",time:"BMO",status:"estimated",sector:"Utilities",idx:["S&P 500"]},
 {d:"2026-08-06",name:"Airbnb",ticker:"ABNB",time:"AMC",status:"confirmed",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-05",name:"AppLovin",ticker:"APP",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-28",name:"Arch Capital",ticker:"ACGL",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
@@ -420,14 +396,14 @@ const EARNINGS =  [
 {d:"2026-08-05",name:"Liberty Live",ticker:"LLYVA",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-05",name:"Lineage",ticker:"LINE",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Littelfuse",ticker:"LFUS",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-08-03",name:"MercadoLibre",ticker:"MELI",time:"AMC",status:"estimated",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-05",name:"MercadoLibre",ticker:"MELI",time:"AMC",status:"estimated",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-23",name:"Nasdaq",ticker:"NDAQ",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-13",name:"NetEase",ticker:"NTES",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Nexstar Media",ticker:"NXST",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Nova",ticker:"NVMI",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-03",name:"Praxis Precision Medicines",ticker:"PRAX",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"PTC",ticker:"PTC",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-07-29",name:"Qualcomm",ticker:"QCOM",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-05",name:"Qualcomm",ticker:"QCOM",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-30",name:"Repligen",ticker:"RGEN",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-04",name:"Rhythm Pharmaceuticals",ticker:"RYTM",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
 {d:"2026-07-28",name:"Rush Enterprises",ticker:"RUSHA",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
@@ -438,7 +414,7 @@ const EARNINGS =  [
 {d:"2026-07-21",name:"Vicor",ticker:"VICR",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-29",name:"Woodward",ticker:"WWD",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-23",name:"American Airlines",ticker:"AAL",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq"]},
-{d:"2026-08-06",name:"Eli Lilly",ticker:"LLY",time:"BMO",status:"estimated",sector:"Health Care",idx:["S&P 500"]},
+{d:"2026-08-05",name:"Eli Lilly",ticker:"LLY",time:"BMO",status:"confirmed",sector:"Health Care",idx:["S&P 500"]},
 {d:"2026-07-30",name:"Exelon",ticker:"EXC",time:"BMO",status:"estimated",sector:"Utilities",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-07-30",name:"Gaming and Leisure Properties",ticker:"GLPI",time:"AMC",status:"estimated",sector:"Consumer Disc.",idx:["Nasdaq"]},
 {d:"2026-08-05",name:"Thomson Reuters",ticker:"TRI",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
@@ -485,11 +461,11 @@ const EARNINGS =  [
 {d:"2026-08-06",name:"Constellation Energy",ticker:"CEG",time:"BMO",status:"estimated",sector:"Utilities",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-06",name:"Insmed",ticker:"INSM",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-03",name:"Krystal Biotech",ticker:"KRYS",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
-{d:"2026-08-04",name:"NRG Energy",ticker:"NRG",time:"BMO",status:"estimated",sector:"Utilities",idx:["S&P 500"]},
+{d:"2026-08-04",name:"NRG Energy",ticker:"NRG",time:"BMO",status:"confirmed",sector:"Utilities",idx:["S&P 500"]},
 {d:"2026-08-06",name:"PTC Therapeutics",ticker:"PTCT",time:"AMC",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
-{d:"2026-08-06",name:"Talen Energy",ticker:"TLN",time:"BMO",status:"confirmed",sector:"Energy",idx:["Nasdaq"]},
+{d:"2026-08-05",name:"Talen Energy",ticker:"TLN",time:"AMC",status:"confirmed",sector:"Energy",idx:["Nasdaq"]},
 {d:"2026-08-03",name:"Viper Energy",ticker:"VNOM",time:"AMC",status:"estimated",sector:"Energy",idx:["Nasdaq"]},
-{d:"2026-08-07",name:"Vistra",ticker:"VST",time:"BMO",status:"estimated",sector:"Utilities",idx:["S&P 500"]},
+{d:"2026-08-07",name:"Vistra",ticker:"VST",time:"BMO",status:"confirmed",sector:"Utilities",idx:["S&P 500"]},
 {d:"2026-08-06",name:"Warner Bros. Discovery",ticker:"WBD",time:"BMO",status:"estimated",sector:"Communication Svcs",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-10",name:"Axsome Therapeutics",ticker:"AXSM",time:"BMO",status:"estimated",sector:"Health Care",idx:["Nasdaq"]},
 {d:"2026-08-03",name:"Berkshire Hathaway",ticker:"BRK.B",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
@@ -592,21 +568,21 @@ const EARNINGS =  [
 {d:"2026-07-29",name:"Teradyne",ticker:"TER",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-08-06",name:"Texas Roadhouse",ticker:"TXRH",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-07-23",name:"Tractor Supply",ticker:"TSCO",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-08-12",name:"Cisco Systems",ticker:"CSCO",time:"AMC",status:"confirmed",sector:"Technology",idx:["Dow 30","Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-19",name:"Cisco Systems",ticker:"CSCO",time:"AMC",status:"estimated",sector:"Technology",idx:["Dow 30","Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-18",name:"Home Depot",ticker:"HD",time:"BMO",status:"estimated",sector:"Consumer Disc.",idx:["Dow 30","S&P 500"]},
 {d:"2026-08-20",name:"Intuit",ticker:"INTU",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-08-27",name:"Marvell Technology",ticker:"MRVL",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-20",name:"Marvell Technology",ticker:"MRVL",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-20",name:"Ross Stores",ticker:"ROST",time:"AMC",status:"estimated",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-19",name:"Target",ticker:"TGT",time:"BMO",status:"estimated",sector:"Consumer Disc.",idx:["S&P 500"]},
 {d:"2026-08-19",name:"TJX Companies",ticker:"TJX",time:"BMO",status:"estimated",sector:"Consumer Disc.",idx:["S&P 500"]},
 {d:"2026-08-20",name:"Walmart",ticker:"WMT",time:"BMO",status:"confirmed",sector:"Consumer Staples",idx:["Dow 30","Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-08-17",name:"Palo Alto Networks",ticker:"PANW",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-08-20",name:"Zoom Communications",ticker:"ZM",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
-{d:"2026-08-26",name:"CrowdStrike",ticker:"CRWD",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-24",name:"Palo Alto Networks",ticker:"PANW",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-24",name:"Zoom Communications",ticker:"ZM",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq"]},
+{d:"2026-09-02",name:"CrowdStrike",ticker:"CRWD",time:"AMC",status:"confirmed",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-26",name:"NVIDIA",ticker:"NVDA",time:"AMC",status:"confirmed",sector:"Technology",idx:["Dow 30","Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-09-02",name:"Salesforce",ticker:"CRM",time:"AMC",status:"estimated",sector:"Technology",idx:["Dow 30","S&P 500"]},
+{d:"2026-08-26",name:"Salesforce",ticker:"CRM",time:"AMC",status:"estimated",sector:"Technology",idx:["Dow 30","S&P 500"]},
 {d:"2026-08-26",name:"Synopsys",ticker:"SNPS",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-08-24",name:"PDD Holdings",ticker:"PDD",time:"BMO",status:"estimated",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-08-31",name:"PDD Holdings",ticker:"PDD",time:"BMO",status:"estimated",sector:"Consumer Disc.",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-27",name:"Autodesk",ticker:"ADSK",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-08-27",name:"Dell Technologies",ticker:"DELL",time:"AMC",status:"estimated",sector:"Technology",idx:["S&P 500"]},
 {d:"2026-08-20",name:"Workday",ticker:"WDAY",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
@@ -620,26 +596,24 @@ const EARNINGS =  [
 {d:"2026-09-24",name:"Costco Wholesale",ticker:"COST",time:"AMC",status:"confirmed",sector:"Consumer Staples",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-09-24",name:"Cintas",ticker:"CTAS",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-09-30",name:"Paychex",ticker:"PAYX",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-10-08",name:"Aehr Test Systems",ticker:"AEHR",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
+{d:"2026-10-06",name:"Aehr Test Systems",ticker:"AEHR",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq"]},
 {d:"2026-10-13",name:"PepsiCo",ticker:"PEP",time:"BMO",status:"estimated",sector:"Consumer Staples",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-07-14",name:"Fastenal",ticker:"FAST",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-10-13",name:"Citigroup",ticker:"C",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
-{d:"2026-10-13",name:"Goldman Sachs",ticker:"GS",time:"BMO",status:"estimated",sector:"Financials",idx:["Dow 30","S&P 500"]},
-{d:"2026-10-13",name:"JPMorgan Chase",ticker:"JPM",time:"BMO",status:"estimated",sector:"Financials",idx:["Dow 30","S&P 500"]},
-{d:"2026-10-13",name:"UnitedHealth Group",ticker:"UNH",time:"BMO",status:"estimated",sector:"Health Care",idx:["Dow 30","S&P 500"]},
-{d:"2026-10-13",name:"Wells Fargo",ticker:"WFC",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
-{d:"2026-10-14",name:"Bank of America",ticker:"BAC",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
+{d:"2026-10-13",name:"Citigroup",ticker:"C",time:"BMO",status:"confirmed",sector:"Financials",idx:["S&P 500"]},
+{d:"2026-10-13",name:"Goldman Sachs",ticker:"GS",time:"BMO",status:"confirmed",sector:"Financials",idx:["Dow 30","S&P 500"]},
+{d:"2026-10-13",name:"JPMorgan Chase",ticker:"JPM",time:"BMO",status:"confirmed",sector:"Financials",idx:["Dow 30","S&P 500"]},
+{d:"2026-10-09",name:"UnitedHealth Group",ticker:"UNH",time:"BMO",status:"estimated",sector:"Health Care",idx:["Dow 30","S&P 500"]},
+{d:"2026-10-13",name:"Wells Fargo",ticker:"WFC",time:"BMO",status:"confirmed",sector:"Financials",idx:["S&P 500"]},
+{d:"2026-10-14",name:"Bank of America",ticker:"BAC",time:"BMO",status:"confirmed",sector:"Financials",idx:["S&P 500"]},
 {d:"2026-10-14",name:"BOK Financial",ticker:"BOKF",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
 {d:"2026-10-14",name:"Fifth Third Bancorp",ticker:"FITB",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
-{d:"2026-10-14",name:"Johnson & Johnson",ticker:"JNJ",time:"BMO",status:"estimated",sector:"Health Care",idx:["Dow 30","S&P 500"]},
-{d:"2026-10-14",name:"Morgan Stanley",ticker:"MS",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
+{d:"2026-10-13",name:"Johnson & Johnson",ticker:"JNJ",time:"BMO",status:"estimated",sector:"Health Care",idx:["Dow 30","S&P 500"]},
+{d:"2026-10-14",name:"Morgan Stanley",ticker:"MS",time:"BMO",status:"confirmed",sector:"Financials",idx:["S&P 500"]},
 {d:"2026-10-14",name:"Principal Financial",ticker:"PFG",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
 {d:"2026-10-15",name:"CSX",ticker:"CSX",time:"AMC",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-07-15",name:"ASML",ticker:"ASML",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-10-15",name:"Commerce Bancshares",ticker:"CBSH",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
 {d:"2026-10-15",name:"East West Bancorp",ticker:"EWBC",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
 {d:"2026-10-15",name:"Huntington Bancshares",ticker:"HBAN",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
-{d:"2026-10-16",name:"Netflix",ticker:"NFLX",time:"AMC",status:"estimated",sector:"Communication Svcs",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-10-20",name:"Netflix",ticker:"NFLX",time:"AMC",status:"confirmed",sector:"Communication Svcs",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-10-16",name:"Northern Trust",ticker:"NTRS",time:"BMO",status:"estimated",sector:"Financials",idx:["Nasdaq"]},
 {d:"2026-10-16",name:"Procter & Gamble",ticker:"PG",time:"BMO",status:"estimated",sector:"Consumer Staples",idx:["Dow 30","S&P 500"]},
 {d:"2026-10-16",name:"TSMC",ticker:"TSM",time:"BMO",status:"estimated",sector:"Technology",idx:["S&P 500"]},
@@ -1108,56 +1082,63 @@ const EARNINGS =  [
 {d:"2026-12-10",name:"Adobe",ticker:"ADBE",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-12-11",name:"Broadcom",ticker:"AVGO",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-12-17",name:"FedEx",ticker:"FDX",time:"AMC",status:"estimated",sector:"Industrials",idx:["S&P 500"]},
-{d:"2026-09-22",name:"Micron Technology",ticker:"MU",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-09-29",name:"Micron Technology",ticker:"MU",time:"AMC",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
 {d:"2026-12-18",name:"Costco Wholesale",ticker:"COST",time:"AMC",status:"estimated",sector:"Consumer Staples",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
-{d:"2026-09-24",name:"Nike",ticker:"NKE",time:"AMC",status:"estimated",sector:"Consumer Disc.",idx:["Dow 30","S&P 500"]},
-{d:"2026-07-30",name:"Cloudflare",ticker:"NET",time:"AMC",status:"estimated",sector:"Technology",idx:["S&P 500"]},
-{d:"2026-08-26",name:"Snowflake",ticker:"SNOW",time:"AMC",status:"confirmed",sector:"Technology",idx:["S&P 500"]}
+{d:"2026-09-24",name:"Nike",ticker:"NKE",time:"AMC",status:"confirmed",sector:"Consumer Disc.",idx:["Dow 30","S&P 500"]},
+{d:"2026-07-30",name:"Cloudflare",ticker:"NET",time:"AMC",status:"confirmed",sector:"Technology",idx:["S&P 500"]},
+{d:"2026-08-26",name:"Snowflake",ticker:"SNOW",time:"AMC",status:"confirmed",sector:"Technology",idx:["S&P 500"]},
+{d:"2026-10-20",name:"GE Aerospace",ticker:"GE",time:"BMO",status:"estimated",sector:"Industrials",idx:["S&P 500"]},
+{d:"2026-10-14",name:"BlackRock",ticker:"BLK",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
+{d:"2026-10-14",name:"PNC Financial",ticker:"PNC",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
+{d:"2026-10-15",name:"Abbott Laboratories",ticker:"ABT",time:"BMO",status:"estimated",sector:"Health Care",idx:["S&P 500"]},
+{d:"2026-10-15",name:"U.S. Bancorp",ticker:"USB",time:"BMO",status:"estimated",sector:"Financials",idx:["S&P 500"]},
+{d:"2026-10-13",name:"Fastenal",ticker:"FAST",time:"BMO",status:"estimated",sector:"Industrials",idx:["Nasdaq-100","S&P 500","Nasdaq"]},
+{d:"2026-10-14",name:"ASML",ticker:"ASML",time:"BMO",status:"estimated",sector:"Technology",idx:["Nasdaq-100","S&P 500","Nasdaq"]}
 ];
 const SECTOR_COLOR={"Technology":"#5b8cff","Financials":"#22c55e","Health Care":"#ec6a9c","Consumer Disc.":"#f5933a","Consumer Staples":"#36c2cf","Communication Svcs":"#a78bfa","Industrials":"#9aa6c4","Energy":"#e0b341","Utilities":"#62b6a8","Materials":"#c98be0"};
 const LOGO=t=>`https://g.foolcdn.com/art/companylogos/mark/${t.replace('.','-')}.png`;
 const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
 const DOW=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-const TODAY="2026-07-14";
+const TODAY="2026-07-20";
 function initials(name){const c=name.replace(/[^A-Za-z0-9 &]/g,'').split(/\s+/).filter(Boolean);if(c.length===1)return c[0].slice(0,2).toUpperCase();return (c[0][0]+c[1][0]).toUpperCase();}
 function parseD(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);}
 const state={q:"",time:"all",idx:"all"};
 
 function render(){
-  const cal=document.getElementById('cal');
-  const q=state.q.trim().toLowerCase();
-  let rows=EARNINGS.filter(e=>{
-    if(state.time!=="all"&&e.time!==state.time)return false;
-    if(state.idx!=="all"&&!e.idx.includes(state.idx))return false;
-    if(q&&!(e.name.toLowerCase().includes(q)||e.ticker.toLowerCase().includes(q)||e.sector.toLowerCase().includes(q)))return false;
-    return true;
-  });
-  document.getElementById('counter').textContent=`${rows.length} reports · ${new Set(rows.map(r=>r.ticker)).size} companies · ${new Set(rows.map(r=>r.d)).size} days`;
-  if(!rows.length){cal.innerHTML='<div class="empty">No earnings match your filters.</div>';document.getElementById('monthnav').innerHTML='';return;}
-  const byMonth={};
-  rows.forEach(e=>{const dt=parseD(e.d);const mk=`${dt.getFullYear()}-${dt.getMonth()}`;(byMonth[mk]=byMonth[mk]||{});(byMonth[mk][e.d]=byMonth[mk][e.d]||[]).push(e);});
-  const mks=Object.keys(byMonth).sort((a,b)=>{const[ya,ma]=a.split('-').map(Number);const[yb,mb]=b.split('-').map(Number);return ya-yb||ma-mb;});
-  document.getElementById('monthnav').innerHTML=mks.map(mk=>{const[y,m]=mk.split('-').map(Number);const n=Object.values(byMonth[mk]).reduce((a,d)=>a+d.length,0);return `<a href="#m-${mk}">${MONTHS[m].slice(0,3)} <span style="opacity:.6">${n}</span></a>`;}).join('');
-  cal.innerHTML=mks.map(mk=>{
-    const[y,m]=mk.split('-').map(Number);
-    const days=Object.keys(byMonth[mk]).sort();
-    const total=days.reduce((a,d)=>a+byMonth[mk][d].length,0);
-    const dayHtml=days.map(d=>{
-      const dt=parseD(d);
-      const list=byMonth[mk][d].slice().sort((a,b)=>(a.time>b.time?1:a.time<b.time?-1:0)||a.name.localeCompare(b.name));
-      const cards=list.map(e=>{
-        const col=SECTOR_COLOR[e.sector]||'#9aa6c4';
-        const badge=`<div class="badge" style="background:linear-gradient(135deg,${col},${col}aa)">${initials(e.name)}</div>`;
-        const img=`<img class="logo" src="${LOGO(e.ticker)}" alt="${e.name}" loading="lazy" data-fb='${badge.replace(/'/g,"&#39;")}' onerror="this.outerHTML=this.dataset.fb">`;
-        const dowT=e.idx.includes("Dow 30")?'<span class="idxtag dow">DOW</span>':'';
-        const ndxT=e.idx.includes("Nasdaq-100")?'<span class="idxtag ndx">N100</span>':(e.idx.includes("Nasdaq")?'<span class="idxtag ndq">NDQ</span>':'');
-        const tip=`${e.name} (${e.ticker}) — ${e.sector} — ${e.idx.join(', ')} — ${e.time==='BMO'?'before market open':'after market close'}${e.status==='confirmed'?' — CONFIRMED date':' — estimated date'}`;
-        return `<div class="card" style="border-left-color:${col}" title="${tip}">${img}<div class="meta"><div class="nm">${e.name}</div><div class="row2"><span class="tk">${e.ticker}</span><span class="tag ${e.time==='AMC'?'amc':'bmo'}">${e.time}</span>${e.status==='confirmed'?'<span class="conf"></span>':''}${dowT}${ndxT}</div></div></div>`;
-      }).join('');
-      return `<div class="day"><div class="daterail"><div class="datebox"><div class="dow">${DOW[dt.getDay()]}</div><div class="dnum">${dt.getDate()}</div><div class="dmon">${MONTHS[dt.getMonth()].slice(0,3)}</div><div class="daycount">${list.length} cos.</div>${d===TODAY?'<div class="today-tag">TODAY</div>':''}</div></div><div class="cards">${cards}</div></div>`;
-    }).join('');
-    return `<section class="month" id="m-${mk}"><h2>${MONTHS[m]} ${y} <span class="cnt">${total} reports</span></h2><div class="mline"></div>${dayHtml}</section>`;
-  }).join('');
+const cal=document.getElementById('cal');
+const q=state.q.trim().toLowerCase();
+let rows=EARNINGS.filter(e=>{
+if(state.time!=="all"&&e.time!==state.time)return false;
+if(state.idx!=="all"&&!e.idx.includes(state.idx))return false;
+if(q&&!(e.name.toLowerCase().includes(q)||e.ticker.toLowerCase().includes(q)||e.sector.toLowerCase().includes(q)))return false;
+return true;
+});
+document.getElementById('counter').textContent=`${rows.length} reports · ${new Set(rows.map(r=>r.ticker)).size} companies · ${new Set(rows.map(r=>r.d)).size} days`;
+if(!rows.length){cal.innerHTML='<div class="empty">No earnings match your filters.</div>';document.getElementById('monthnav').innerHTML='';return;}
+const byMonth={};
+rows.forEach(e=>{const dt=parseD(e.d);const mk=`${dt.getFullYear()}-${dt.getMonth()}`;(byMonth[mk]=byMonth[mk]||{});(byMonth[mk][e.d]=byMonth[mk][e.d]||[]).push(e);});
+const mks=Object.keys(byMonth).sort((a,b)=>{const[ya,ma]=a.split('-').map(Number);const[yb,mb]=b.split('-').map(Number);return ya-yb||ma-mb;});
+document.getElementById('monthnav').innerHTML=mks.map(mk=>{const[y,m]=mk.split('-').map(Number);const n=Object.values(byMonth[mk]).reduce((a,d)=>a+d.length,0);return `<a href="#m-${mk}">${MONTHS[m].slice(0,3)} <span style="opacity:.6">${n}</span></a>`;}).join('');
+cal.innerHTML=mks.map(mk=>{
+const[y,m]=mk.split('-').map(Number);
+const days=Object.keys(byMonth[mk]).sort();
+const total=days.reduce((a,d)=>a+byMonth[mk][d].length,0);
+const dayHtml=days.map(d=>{
+const dt=parseD(d);
+const list=byMonth[mk][d].slice().sort((a,b)=>(a.time>b.time?1:a.time<b.time?-1:0)||a.name.localeCompare(b.name));
+const cards=list.map(e=>{
+const col=SECTOR_COLOR[e.sector]||'#9aa6c4';
+const badge=`<div class="badge" style="background:linear-gradient(135deg,${col},${col}aa)">${initials(e.name)}</div>`;
+const img=`<img class="logo" src="${LOGO(e.ticker)}" alt="${e.name}" loading="lazy" data-fb='${badge.replace(/'/g,"&#39;")}' onerror="this.outerHTML=this.dataset.fb">`;
+const dowT=e.idx.includes("Dow 30")?'<span class="idxtag dow">DOW</span>':'';
+const ndxT=e.idx.includes("Nasdaq-100")?'<span class="idxtag ndx">N100</span>':(e.idx.includes("Nasdaq")?'<span class="idxtag ndq">NDQ</span>':'');
+const tip=`${e.name} (${e.ticker}) — ${e.sector} — ${e.idx.join(', ')} — ${e.time==='BMO'?'before market open':'after market close'}${e.status==='confirmed'?' — CONFIRMED date':' — estimated date'}`;
+return `<div class="card" style="border-left-color:${col}" title="${tip}">${img}<div class="meta"><div class="nm">${e.name}</div><div class="row2"><span class="tk">${e.ticker}</span><span class="tag ${e.time==='AMC'?'amc':'bmo'}">${e.time}</span>${e.status==='confirmed'?'<span class="conf"></span>':''}${dowT}${ndxT}</div></div></div>`;
+}).join('');
+return `<div class="day"><div class="daterail"><div class="datebox"><div class="dow">${DOW[dt.getDay()]}</div><div class="dnum">${dt.getDate()}</div><div class="dmon">${MONTHS[dt.getMonth()].slice(0,3)}</div><div class="daycount">${list.length} cos.</div>${d===TODAY?'<div class="today-tag">TODAY</div>':''}</div></div><div class="cards">${cards}</div></div>`;
+}).join('');
+return `<section class="month" id="m-${mk}"><h2>${MONTHS[m]} ${y} <span class="cnt">${total} reports</span></h2><div class="mline"></div>${dayHtml}</section>`;
+}).join('');
 }
 document.getElementById('sectorLegend').innerHTML=Object.entries(SECTOR_COLOR).map(([s,c])=>`<span class="it"><span class="dot" style="background:${c}"></span>${s}</span>`).join('');
 document.getElementById('q').addEventListener('input',e=>{state.q=e.target.value;render();});
