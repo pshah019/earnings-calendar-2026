@@ -874,7 +874,7 @@ const SECTOR_COLOR={"Technology":"#5b8cff","Financials":"#22c55e","Health Care":
 const LOGO=t=>`https://g.foolcdn.com/art/companylogos/mark/${t.replace('.','-')}.png`;
 const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
 const DOW=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-const TODAY="2026-07-27";
+const TODAY = (function(){var n=new Date(),p=function(v){return String(v).padStart(2,"0");};return n.getFullYear()+"-"+p(n.getMonth()+1)+"-"+p(n.getDate());})();
 function initials(name){const c=name.replace(/[^A-Za-z0-9 &]/g,'').split(/\s+/).filter(Boolean);if(c.length===1)return c[0].slice(0,2).toUpperCase();return (c[0][0]+c[1][0]).toUpperCase();}
 function parseD(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d);}
 const state={q:"",time:"all",idx:"all"};
@@ -882,7 +882,7 @@ const state={q:"",time:"all",idx:"all"};
 function render(){
 const cal=document.getElementById('cal');
 const q=state.q.trim().toLowerCase();
-let rows=EARNINGS.filter(e=>{
+let rows = EARNINGS.filter(function(e){return e.d>=TODAY;}).filter(e=>{
 if(state.time!=="all"&&e.time!==state.time)return false;
 if(state.idx!=="all"&&!e.idx.includes(state.idx))return false;
 if(q&&!(e.name.toLowerCase().includes(q)||e.ticker.toLowerCase().includes(q)||e.sector.toLowerCase().includes(q)))return false;
